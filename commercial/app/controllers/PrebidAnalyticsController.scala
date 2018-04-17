@@ -36,8 +36,10 @@ class PrebidAnalyticsController(val controllerComponents: ControllerComponents) 
   // todo
   private val deliveryStreamName = "KelvinTestFirehose"
 
+  private val newLine = "\n".getBytes
+
   private def putRequest(data: Array[Byte]): PutRecordRequest = {
-    val record = new Record().withData(ByteBuffer.wrap(data))
+    val record = new Record().withData(ByteBuffer.wrap(data ++ newLine))
     new PutRecordRequest().withDeliveryStreamName(deliveryStreamName).withRecord(record)
   }
 
